@@ -1,0 +1,16 @@
+.navbar-brand {
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.nav-link {
+  transition: 0.3s;
+}
+
+.nav-link:hover {
+  color: #ffc107 !important;
+}
+
+.btn-outline-warning:hover {
+  color: black !important;
+}

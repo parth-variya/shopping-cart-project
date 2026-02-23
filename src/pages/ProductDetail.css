@@ -1,0 +1,116 @@
+.product-detail-container{
+ min-height:100vh;
+ background:#f4f6f9;
+ padding:30px;
+}
+
+/* Back Button */
+
+.back-btn{
+ background:#0d6efd;
+ color:white;
+ border:none;
+ padding:8px 14px;
+ border-radius:8px;
+ margin-bottom:20px;
+ cursor:pointer;
+}
+
+.back-btn:hover{
+ background:#084298;
+}
+
+/* Card Layout */
+
+.product-detail-card{
+ max-width:900px;
+ margin:auto;
+ background:white;
+ border-radius:16px;
+ box-shadow:0 6px 15px rgba(0,0,0,.12);
+ display:flex;
+ gap:25px;
+ padding:25px;
+}
+
+/* Image */
+
+.product-detail-img{
+ width:300px;
+ height:300px;
+ object-fit:contain;
+ border-radius:12px;
+ background:#fafafa;
+ padding:10px;
+}
+
+/* Info */
+
+.product-detail-info{
+ flex:1;
+}
+
+.product-detail-info h2{
+ margin-bottom:10px;
+}
+
+.price{
+ font-size:22px;
+ color:#198754;
+ font-weight:600;
+ margin-bottom:10px;
+}
+
+/* Description */
+
+.desc-title{
+ margin-top:15px;
+}
+
+.description{
+ color:#555;
+ line-height:1.6;
+}
+
+/* Add Button */
+
+.add-btn{
+ margin-top:20px;
+ background:#198754;
+ color:white;
+ border:none;
+ padding:12px 25px;
+ border-radius:10px;
+ font-size:16px;
+}
+
+.add-btn:hover{
+ background:#157347;
+}
+
+.add-btn:disabled{
+ background:#ccc;
+ cursor:not-allowed;
+}
+
+/* Accessibility */
+
+button:focus{
+ outline:3px solid #ffc107;
+}
+
+/* Mobile Responsive */
+
+@media(max-width:768px){
+
+.product-detail-card{
+ flex-direction:column;
+ text-align:center;
+}
+
+.product-detail-img{
+ width:100%;
+ height:auto;
+}
+
+}

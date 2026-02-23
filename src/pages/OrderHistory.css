@@ -1,0 +1,106 @@
+.orders-container{
+ max-width:900px;
+ margin:auto;
+ padding:30px 15px;
+ background:#f4f6f9;
+ min-height:100vh;
+}
+
+/* Title */
+
+.orders-container h2{
+ text-align:center;
+ margin-bottom:25px;
+}
+
+/* Order Card */
+
+.order-card{
+ background:white;
+ border-radius:14px;
+ padding:18px;
+ margin-bottom:20px;
+ box-shadow:0 5px 12px rgba(0,0,0,.1);
+}
+
+/* Header */
+
+.order-header{
+ display:flex;
+ justify-content:space-between;
+ font-size:14px;
+ color:#666;
+ margin-bottom:10px;
+}
+
+/* Items */
+
+.order-item{
+ display:flex;
+ justify-content:space-between;
+ padding:6px 0;
+}
+
+/* Footer */
+
+.order-footer{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-top:10px;
+}
+
+/* Status Badge */
+
+.status{
+ background:#0d6efd;
+ color:white;
+ padding:4px 10px;
+ border-radius:20px;
+ font-size:13px;
+}
+
+/* Divider */
+
+hr{
+ border:none;
+ border-top:1px solid #eee;
+ margin:10px 0;
+}
+
+/* Accessibility */
+
+.order-card:focus-within{
+ outline:3px solid #ffc107;
+}
+
+.cancel-btn{
+background:red;
+color:white;
+border:none;
+padding:6px 10px;
+margin-left:10px;
+cursor:pointer;
+border-radius:4px;
+}
+
+.cancel-btn:hover{
+background:darkred;
+}
+
+/* Mobile */
+
+@media(max-width:600px){
+
+.order-header{
+ flex-direction:column;
+ gap:5px;
+}
+
+.order-footer{
+ flex-direction:column;
+ gap:8px;
+ align-items:flex-start;
+}
+
+}
