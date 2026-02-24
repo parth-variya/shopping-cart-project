@@ -9,7 +9,7 @@ Features
 .
 - Checkout
 
-- Admin Panel
+- My Order 
 
 - Data Stored In Local Storage
 
