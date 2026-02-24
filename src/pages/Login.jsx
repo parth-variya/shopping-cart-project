@@ -65,6 +65,18 @@ export default function Login() {
           <button type="submit">Login</button>
 
         </form>
+
+        {/* Admin Login Link */}
+        <p style={{marginTop:"15px"}}>
+          Are you an Admin?{" "}
+          <span
+            style={{color:"blue",cursor:"pointer"}}
+            onClick={()=>navigate("/admin-login")}
+          >
+            Admin Login
+          </span>
+        </p>
+
       </div>
     </center>
   );

@@ -1,8 +1,9 @@
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 import Navbar from "./components/Navbar";
 import Cart from "./pages/Cart";
@@ -20,41 +21,9 @@ import Receipt from "./pages/Receipt";
 import "./App.css";
 
 const defaultProducts = [
- {
-  id: 1,
-  name: "Laptop",
-  price: 50000,
-  stock: 15,
-  image: "/images/laptop.jpg"
- },
- {
-  id: 2,
-  name: "Phone",
-  price: 20000,
-  stock: 20,
-  image: "/images/phone.jpg"
- },
- {
-  id: 3,
-  name: "Headphones",
-  price: 3000,
-  stock: 10,
-  image: "/images/headphones.jpg"
- },
- {
-  id: 4,
-  name: "C.P.U",
-  price: 70000,
-  stock: 4,
-  image: "/images/cpu.jpg"
- },
- {
-  id: 5,
-  name: "Microwave",
-  price: 3000,
-  stock: 10,
-  image: "/images/microwave.jpg"
- }
+ { id: 1, name: "Laptop", price: 50000, stock: 15 },
+ { id: 2, name: "Phone", price: 20000, stock: 20 },
+ { id: 3, name: "Headphones", price: 3000, stock: 10 }
 ];
 
 function App() {
@@ -62,13 +31,13 @@ function App() {
  const navigate = useNavigate();
  const [search,setSearch] = useState("");
 
- const [products,setProducts] = useState(() =>
-  JSON.parse(localStorage.getItem("products")) || defaultProducts
- );
+ const [products,setProducts] = useState(()=>{
+  return JSON.parse(localStorage.getItem("products")) || defaultProducts;
+ });
 
- const [cart,setCart] = useState(() =>
-  JSON.parse(localStorage.getItem("cart")) || []
- );
+ const [cart,setCart] = useState(()=>{
+  return JSON.parse(localStorage.getItem("cart")) || [];
+ });
 
  useEffect(()=>{
   localStorage.setItem("products",JSON.stringify(products));
@@ -91,10 +60,7 @@ function App() {
    return;
   }
 
-  if(product.stock === 0){
-   toast.warning("Out of Stock");
-   return;
-  }
+  if(product.stock === 0) return;
 
   setProducts(p =>
    p.map(x =>
@@ -113,19 +79,13 @@ function App() {
 
    return [...c,{...product,qty:1}];
   });
-
-  toast.success("Added to Cart");
- };
+};
 
  // INCREASE
  const increaseQty = (id)=>{
 
   const prod = products.find(p=>p.id===id);
-
-  if(!prod || prod.stock===0){
-   toast.warning("Stock finished");
-   return;
-  }
+  if(!prod || prod.stock===0) return;
 
   setProducts(p=>p.map(x=>x.id===id?{...x,stock:x.stock-1}:x));
   setCart(c=>c.map(i=>i.id===id?{...i,qty:i.qty+1}:i));
@@ -157,20 +117,15 @@ function App() {
   }
 
   setCart(c=>c.filter(i=>i.id!==id));
-
-  toast.info("Item removed");
  };
 
  // CLEAR CART
  const clearCart = ()=>{
-
   cart.forEach(i=>{
    setProducts(p=>p.map(x=>x.id===i.id?{...x,stock:x.stock+i.qty}:x));
   });
 
   setCart([]);
-
-  toast.info("Cart cleared");
  };
 
  const filteredProducts = products.filter(p =>
@@ -180,6 +135,7 @@ function App() {
  return (
  <>
  
+ {/* Toast System */}
  <ToastContainer position="top-right" autoClose={2000} theme="colored" />
 
  <Navbar cartCount={cartCount}/>
@@ -294,6 +250,26 @@ function App() {
   localStorage.getItem("userLogin")==="true"
    ? <UserDashboard/>
    : <Login/>
+ }
+/>
+
+ <Route path="/admin-login" element={<AdminLogin/>}/>
+
+ <Route
+ path="/admin-products"
+ element={
+  localStorage.getItem("adminLogin")==="true"
+   ? <Admin/>
+   : <AdminLogin/>
+ }
+/>
+
+ <Route
+ path="/admin-dashboard"
+ element={
+  localStorage.getItem("adminLogin")==="true"
+   ? <AdminDashboard/>
+   : <AdminLogin/>
  }
 />
 
