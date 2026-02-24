@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "name": "Laptop",
+    "price": 50000,
+    "stock": 15,
+    "image": "/images/laptop.jpeg"
+  },
+  {
+    "id": 2,
+    "name": "Phone",
+    "price": 20000,
+    "stock": 20,
+    "image": "/images/mobile.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Headphones",
+    "price": 3000,
+    "stock": 10,
+    "image": "/images/headphones.jpg"
+  },
+  {
+    "id": 4,
+    "name": "CPU",
+    "price": 70000,
+    "stock": 4,
+    "image": "/images/cpu.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Microwave",
+    "price": 3000,
+    "stock": 10,
+    "image": "/images/microwave.jpg"
+  }
+]
