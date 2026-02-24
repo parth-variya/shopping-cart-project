@@ -20,9 +20,41 @@ import Receipt from "./pages/Receipt";
 import "./App.css";
 
 const defaultProducts = [
- { id: 1, name: "Laptop", price: 50000, stock: 15 },
- { id: 2, name: "Phone", price: 20000, stock: 20 },
- { id: 3, name: "Headphones", price: 3000, stock: 10 }
+ {
+  id: 1,
+  name: "Laptop",
+  price: 50000,
+  stock: 15,
+  image: "/images/laptop.jpg"
+ },
+ {
+  id: 2,
+  name: "Phone",
+  price: 20000,
+  stock: 20,
+  image: "/images/phone.jpg"
+ },
+ {
+  id: 3,
+  name: "Headphones",
+  price: 3000,
+  stock: 10,
+  image: "/images/headphones.jpg"
+ },
+ {
+  id: 4,
+  name: "C.P.U",
+  price: 70000,
+  stock: 4,
+  image: "/images/cpu.jpg"
+ },
+ {
+  id: 5,
+  name: "Microwave",
+  price: 3000,
+  stock: 10,
+  image: "/images/microwave.jpg"
+ }
 ];
 
 function App() {
@@ -262,26 +294,6 @@ function App() {
   localStorage.getItem("userLogin")==="true"
    ? <UserDashboard/>
    : <Login/>
- }
-/>
-
- <Route path="/admin-login" element={<AdminLogin/>}/>
-
- <Route
- path="/admin-products"
- element={
-  localStorage.getItem("adminLogin")==="true"
-   ? <Admin/>
-   : <AdminLogin/>
- }
-/>
-
- <Route
- path="/admin-dashboard"
- element={
-  localStorage.getItem("adminLogin")==="true"
-   ? <AdminDashboard/>
-   : <AdminLogin/>
  }
 />
 
