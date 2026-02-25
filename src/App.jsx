@@ -1,29 +1,22 @@
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Navbar from "./components/Navbar";
 import Cart from "./pages/Cart";
 import Login from "./pages/Login";
-import Admin from "./pages/Admin";
-import AdminLogin from "./pages/AdminLogin";
 import Checkout from "./pages/Checkout";
 import Signup from "./pages/Signup";
 import UserDashboard from "./pages/UserDashboard";
-import AdminDashboard from "./pages/AdminDashboard";
 import ProductDetail from "./pages/ProductDetail";
 import OrderHistory from "./pages/OrderHistory";
 import Receipt from "./pages/Receipt";
 
-import "./App.css";
+import productData from "./data/products.json";
 
-const defaultProducts = [
- { id: 1, name: "Laptop", price: 50000, stock: 15 },
- { id: 2, name: "Phone", price: 20000, stock: 20 },
- { id: 3, name: "Headphones", price: 3000, stock: 10 }
-];
+import "./App.css";
 
 function App() {
 
@@ -31,7 +24,7 @@ function App() {
  const [search,setSearch] = useState("");
 
  const [products,setProducts] = useState(()=>{
-  return JSON.parse(localStorage.getItem("products")) || defaultProducts;
+  return JSON.parse(localStorage.getItem("products")) || productData;
  });
 
  const [cart,setCart] = useState(()=>{
@@ -54,11 +47,15 @@ function App() {
   const login = localStorage.getItem("userLogin");
 
   if(login !== "true"){
+   toast.error("Please Create Account first");
    navigate("/signup");
    return;
   }
 
-  if(product.stock === 0) return;
+  if(product.stock === 0){
+   toast.warning("Out of Stock");
+   return;
+  }
 
   setProducts(p =>
    p.map(x =>
@@ -77,13 +74,19 @@ function App() {
 
    return [...c,{...product,qty:1}];
   });
+
+  toast.success("Added to Cart");
  };
 
  // INCREASE
  const increaseQty = (id)=>{
 
   const prod = products.find(p=>p.id===id);
-  if(!prod || prod.stock===0) return;
+
+  if(!prod || prod.stock===0){
+   toast.warning("Stock finished");
+   return;
+  }
 
   setProducts(p=>p.map(x=>x.id===id?{...x,stock:x.stock-1}:x));
   setCart(c=>c.map(i=>i.id===id?{...i,qty:i.qty+1}:i));
@@ -115,15 +118,20 @@ function App() {
   }
 
   setCart(c=>c.filter(i=>i.id!==id));
+
+  toast.info("Item removed");
  };
 
  // CLEAR CART
  const clearCart = ()=>{
+
   cart.forEach(i=>{
    setProducts(p=>p.map(x=>x.id===i.id?{...x,stock:x.stock+i.qty}:x));
   });
 
   setCart([]);
+
+  toast.info("Cart cleared");
  };
 
  const filteredProducts = products.filter(p =>
@@ -133,7 +141,6 @@ function App() {
  return (
  <>
  
- {/* Toast System */}
  <ToastContainer position="top-right" autoClose={2000} theme="colored" />
 
  <Navbar cartCount={cartCount}/>
@@ -167,7 +174,7 @@ function App() {
   onClick={()=>navigate(`/product/${p.id}`)}
  >
 
- {p.image && <Card.Img src={p.image} />}
+ {p.image && <Card.Img variant="top" src={p.image} />}
 
  <Card.Body className="d-flex flex-column">
 
@@ -218,6 +225,10 @@ function App() {
  />
  }/>
 
+ <Route path="/product/:id" element={<ProductDetail products={products} addToCart={addToCart}/>}/>
+ <Route path="/login" element={<Login/>}/>
+ <Route path="/signup" element={<Signup/>}/>
+
  <Route
  path="/checkout"
  element={
@@ -227,49 +238,9 @@ function App() {
  }
 />
 
- <Route path="/product/:id" element={<ProductDetail products={products} addToCart={addToCart}/>}/>
- <Route path="/login" element={<Login/>}/>
- <Route path="/signup" element={<Signup/>}/>
-
- <Route
- path="/orders"
- element={
-  localStorage.getItem("userLogin")==="true"
-   ? <OrderHistory/>
-   : <Login/>
- }
-/>
-
+ <Route path="/orders" element={<OrderHistory/>}/>
  <Route path="/receipt" element={<Receipt/>}/>
-
- <Route
- path="/dashboard"
- element={
-  localStorage.getItem("userLogin")==="true"
-   ? <UserDashboard/>
-   : <Login/>
- }
-/>
-
- {/* <Route path="/admin-login" element={<AdminLogin/>}/>
-
- <Route
- path="/admin-products"
- element={
-  localStorage.getItem("adminLogin")==="true"
-   ? <Admin/>
-   : <AdminLogin/>
- }
-/>
-
- <Route
- path="/admin-dashboard"
- element={
-  localStorage.getItem("adminLogin")==="true"
-   ? <AdminDashboard/>
-   : <AdminLogin/>
- }
-/> */}
+ <Route path="/dashboard" element={<UserDashboard/>}/>
 
  </Routes>
  </>
