@@ -65,7 +65,7 @@ export default function Login() {
           <button type="submit">Login</button>
 
         </form>
-         {/* Admin Login Link */}
+         {/* Admin Login Link
         <p style={{marginTop:"15px"}}>
           Are you an Admin?{" "}
           <span
@@ -74,7 +74,7 @@ export default function Login() {
           >
             Admin Login
           </span>
-        </p>
+        </p> */}
       </div>
     </center>
   );
